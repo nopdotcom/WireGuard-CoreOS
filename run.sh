@@ -35,7 +35,7 @@ function build {
 
 		REFERENCE="CoreOS_${VERSION}"
 		#check if WireGuard release for this CoreOS version is already built and published in the GitHub repository
-		url="https://github.com/miguelangel-nubla/WireGuard-CoreOS/releases/download/${BUILD_TAG}/${PKG}.${REFERENCE}.torcx.tgz"
+		url="https://github.com/nopdotcom/WireGuard-CoreOS/releases/download/${BUILD_TAG}/${PKG}.${REFERENCE}.torcx.tgz"
 		if [ $TRAVIS ] && [ $(curl -L --write-out %{http_code} --silent --output /dev/null "$url") -eq 200 ] ;
 		then
 			echo "Release ${BUILD_TAG} for ${REFERENCE} found in $url, skipping"
@@ -53,7 +53,7 @@ function build {
 			if [ $TRAVIS ]
 			then
 				echo "Uploading to GitHub releases..."
-				ghr -b "Automatic [Travis CI](https://travis-ci.org/miguelangel-nubla/WireGuard-CoreOS/) build. If the package for your CoreOS release is not in this tag then it is not compatible. Look for a previous WireGuard release or take a look at [latest-all](https://github.com/miguelangel-nubla/WireGuard-CoreOS/releases/tag/latest-all)" -replace "${BUILD_TAG}" "${RELEASE_FILE}"
+				ghr -b "Automatic [Travis CI](https://travis-ci.org/nopdotcom/WireGuard-CoreOS/) build. If the package for your CoreOS release is not in this tag then it is not compatible. Look for a previous WireGuard release or take a look at [latest-all](https://github.com/nopdotcom/WireGuard-CoreOS/releases/tag/latest-all)" -replace "${BUILD_TAG}" "${RELEASE_FILE}"
 				ghr -b "This is a helper release tag with the latest WireGuard binaries for each CoreOS release. Note that WireGuard versions differ between packages." -replace "latest-all" "${RELEASE_FILE}"
 				echo "Done."
 
