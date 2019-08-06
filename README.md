@@ -21,7 +21,20 @@ wget https://github.com/miguelangel-nubla/WireGuard-CoreOS/releases/download/lat
 jq '.value.images += [{ "name": "WireGuard", "reference": "'CoreOS_${VERSION_ID}'" }]' /usr/share/torcx/profiles/vendor.json > /etc/torcx/profiles/wg.json
 ```
 * `echo wg > /etc/torcx/next-profile`
-* Reboot. WireGuard should be available in `/run/torcx/bin/wg`
+* Reboot. WireGuard should be available in `/run/torcx/bin/wg`. Installation is done.
+* After each reboot and before using wireguard you should load the required kernel modules:
+```
+source /run/metadata/torcx
+/sbin/modprobe ip6_udp_tunnel
+/sbin/modprobe udp_tunnel
+/sbin/insmod ${TORCX_UNPACKDIR}/WireGuard/lib/modules/$(uname -r)/extra/wireguard.ko
+```
+* Load you config with `/run/torcx/bin/wg-quick`
+
+## How to handle CoreOS updates
+The `/etc/wireguard-setup` script at [the example Container Linux Config](container_linux_config.yml) will try to fetch the torcx package for the new CoreOS version.
+
+If it fails or there are no packages available for the new version, it will fallback to try building WireGuard directly on the target machine.
 
 ## Build yourself
 For Ubuntu, git clone this repo, then
