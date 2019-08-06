@@ -61,7 +61,7 @@ storage:
           fi
 
           mkdir -p "/var/lib/torcx/store/${VERSION_ID}"
-          wget https://github.com/miguelangel-nubla/WireGuard-CoreOS/releases/download/latest-all/WireGuard.CoreOS_${VERSION_ID}.torcx.tgz -O "${PKG}"
+          wget https://github.com/nopdotcom/WireGuard-CoreOS/releases/download/latest-all/WireGuard.CoreOS_${VERSION_ID}.torcx.tgz -O "${PKG}"
           jq '.value.images += [{ "name": "WireGuard", "reference": "'CoreOS_${VERSION_ID}'" }]' /usr/share/torcx/profiles/vendor.json > /etc/torcx/profiles/wg.json
           echo wg > /etc/torcx/next-profile
 
